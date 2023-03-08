@@ -1,12 +1,12 @@
-import { Place, TripRoute } from "../../types";
 import { useState } from "react";
-import { Grid } from "@mui/material";
-import PickupField from "./PickupField";
+import { Button, Grid, Typography } from "@mui/material";
+import AddressAutocomplete from "./AddressAutocomplete";
+import calculateMatrix from "./CalculateMatrix";
 
 
-export interface LastSubmissionData {
-    pickup: Place;
-    dropoff: Place;
+interface MatrixResponse {
+    distance: string;
+    duration: string;
 }
 
 interface Props {
@@ -14,14 +14,30 @@ interface Props {
 }
 
 const Form = ({gMapsApiStatus}: Props) => {
-    const [lastSubmission, setLastSubmission] = useState<LastSubmissionData | null>(null)
+
+    const [pointA, setPointA] = useState<google.maps.places.PlaceResult>();
+    const [pointB, setPointB] = useState<google.maps.places.PlaceResult>();
+    const [matrix, setMatrix] = useState<MatrixResponse | null>(null);
+
+    const onCalculate = async () => {
+        if(pointA && pointB){
+            const result = await calculateMatrix([pointA, pointB]);
+            if(result) setMatrix(result);
+        }
+    }
     
     return (
         <form>
-            <Grid container spacing={1}>
-                <PickupField gMapsApiStatus={gMapsApiStatus}  />
-                <PickupField gMapsApiStatus={gMapsApiStatus}  />
-
+            <Grid container spacing={1} sx={{paddingLeft: 1}}>
+                <AddressAutocomplete gMapsApiStatus={gMapsApiStatus} setAddress={setPointA} label={"Point A"}  />
+                <AddressAutocomplete gMapsApiStatus={gMapsApiStatus} setAddress={setPointB} label={"Point B"}  />
+                <Button onClick={onCalculate} variant="contained" sx={{width: "100%", marginTop: 1}}>Calculate distance and duration</Button>
+                {
+                    matrix !== null ?
+                    <Typography>{`Distance: ${matrix.distance} miles. Duration: ${matrix.duration}`}</Typography>
+                    :
+                    null
+                }
             </Grid>
         </form>
     )

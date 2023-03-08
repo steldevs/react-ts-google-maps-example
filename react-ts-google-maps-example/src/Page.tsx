@@ -10,6 +10,7 @@ const SamplePage = () => {
         `https://maps.googleapis.com/maps/api/js?key=&libraries=places`
     );
 
+
     return(
         <>
         <Card sx={{paddingLeft: 5, paddingRight: 5, paddingTop: 5, marginTop: 5, backgroundColor: '#fff', paddingBottom: 5}}>
@@ -26,12 +27,8 @@ const SamplePage = () => {
                         <Typography variant="h6">Tools</Typography>
                         <Form gMapsApiStatus={GMapsApiStatus.status === "ready"} />
                         <Button variant="contained" sx={{width: "100%", marginTop: 1}}>Draw route on map</Button>
-                        <Button variant="contained" sx={{width: "100%", marginTop: 1}}>Calculate distance</Button>
-                        <Button variant="contained" sx={{width: "100%", marginTop: 1}}>Calculate duration</Button>
                     </Box>
                 </Grid>
-                <Button variant="contained" sx={{width: "100%", marginTop: 1}}>Reset state</Button>
-
             </Grid>
         </Card>
         </>

@@ -21,8 +21,8 @@ interface Center {
 const Map = ({gMapsApiStatus}: Props) => {
 
     const originalCenter = {
-        lat: 34.9782017,
-        lng: 33.0642318
+        lat: 51.5287718,
+        lng: -0.2416822
     };
       
       const [directions, setDirections] = React.useState<any>(null);

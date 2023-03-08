@@ -4,32 +4,35 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapPin } from '@fortawesome/free-solid-svg-icons'
 
-
 interface Props {
     gMapsApiStatus: boolean;
+    setAddress(place: google.maps.places.PlaceResult): void;
+    label: string;
 }
 
-const PickupField = ({gMapsApiStatus}: Props) => {
 
-    const [pickupRef, setPickupRef] = useState<any>();
-    const onPickupLoad = (ref: any) => setPickupRef(ref);
+const AddressAutocomplete = ({gMapsApiStatus, setAddress, label}: Props) => {
+
+    const [addressRef, setAddressRef] = useState<google.maps.places.SearchBox>();
+    const onLoad = (ref: google.maps.places.SearchBox) => setAddressRef(ref);
 
     const onPickupChanged = () => {
-        if(pickupRef !== undefined){
-            const pickupLoc = pickupRef.getPlaces();
-
+        if(addressRef){
+            const places = addressRef.getPlaces();
+            if(places){
+                setAddress(places[0])
+            }
         }
     }
-
 
     return(
             <Grid item xs={12}>
                 <Box sx={{width: '100%', textAlign: 'left', marginTop: "5px"}}>
-                    <FormLabel>Pick up point</FormLabel>
+                    <FormLabel>{label}</FormLabel>
                 </Box>
                     {gMapsApiStatus ?
                         <StandaloneSearchBox
-                            onLoad={onPickupLoad}
+                            onLoad={onLoad}
                             onPlacesChanged={onPickupChanged}
                             bounds={
                                 new google.maps.LatLngBounds(
@@ -57,4 +60,4 @@ const PickupField = ({gMapsApiStatus}: Props) => {
     )
 }
 
-export default PickupField;
+export default AddressAutocomplete;
