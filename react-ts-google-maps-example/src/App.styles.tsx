@@ -5,7 +5,8 @@ export const AppStyles = {
         margin: "auto",
     },
     background: {
-        backgroundColor: '#e8e8e8'
+        backgroundColor: '#e8e8e8',
+        height: '100vh'
     }
 };
 

@@ -9,7 +9,7 @@ interface Props {
 
 const containerStyle = {
     width: '100%',
-    height: '650px'
+    height: '350px'
 };
 
 
