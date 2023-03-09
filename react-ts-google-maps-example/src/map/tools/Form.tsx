@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Grid, Typography } from "@mui/material";
 import AddressAutocomplete from "./AddressAutocomplete";
 import calculateMatrix from "./CalculateMatrix";
+import calculateDirections from "./CalculateDirections";
 
 
 interface MatrixResponse {
@@ -11,9 +12,10 @@ interface MatrixResponse {
 
 interface Props {
     gMapsApiStatus: boolean;
+    setMapDirections(directions: google.maps.DirectionsResult): void;
 }
 
-const Form = ({gMapsApiStatus}: Props) => {
+const Form = ({gMapsApiStatus, setMapDirections}: Props) => {
 
     const [pointA, setPointA] = useState<google.maps.places.PlaceResult>();
     const [pointB, setPointB] = useState<google.maps.places.PlaceResult>();
@@ -23,6 +25,13 @@ const Form = ({gMapsApiStatus}: Props) => {
         if(pointA && pointB){
             const result = await calculateMatrix([pointA, pointB]);
             if(result) setMatrix(result);
+        }
+    }
+
+    const onGetDirections = async () => {
+        if(pointA && pointB){
+            const result = await calculateDirections([pointA, pointB]);
+            if(result) setMapDirections(result);
         }
     }
     
@@ -38,6 +47,7 @@ const Form = ({gMapsApiStatus}: Props) => {
                     :
                     null
                 }
+                <Button onClick={onGetDirections} variant="contained" sx={{width: "100%", marginTop: 1}}>Draw route on map</Button>
             </Grid>
         </form>
     )

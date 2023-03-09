@@ -1,10 +1,10 @@
-import React from "react";
-
 import { GoogleMap, DirectionsRenderer, DirectionsService, StreetViewPanorama } from '@react-google-maps/api';
 import { Skeleton } from "@mui/material";
+import { useEffect, useState } from 'react';
 
 interface Props {
     gMapsApiStatus: boolean;
+    mapDirections: google.maps.DirectionsResult | undefined;
 }
 
 const containerStyle = {
@@ -13,27 +13,27 @@ const containerStyle = {
 };
 
 
-interface Center {
-    lat: number;
-    lng: number;
-}
+const Map = ({gMapsApiStatus, mapDirections}: Props) => {
 
-const Map = ({gMapsApiStatus}: Props) => {
+    const [directions, setDirections] = useState<google.maps.DirectionsResult>();
+
+    useEffect(() => {
+        setDirections(mapDirections)
+    },[mapDirections, setDirections]);
 
     const originalCenter = {
         lat: 51.5287718,
         lng: -0.2416822
     };
-      
-      const [directions, setDirections] = React.useState<any>(null);
-      const [center, setCenter] = React.useState<Center>(originalCenter);
 
+    console.log(mapDirections)
+      
       return (
         <>
         {gMapsApiStatus ? (
             <GoogleMap
                 mapContainerStyle={containerStyle}
-                center={center}
+                center={originalCenter}
                 zoom={8}
                 options={
                     {

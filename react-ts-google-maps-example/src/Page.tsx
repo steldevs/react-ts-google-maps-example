@@ -3,6 +3,7 @@ import { IGMapsApiStatus } from "./types";
 import { useScript } from "./utils/ExternalScriptProvider";
 import Map from "./map/Map";
 import Form from "./map/tools/Form";
+import { useState } from "react";
 
 const SamplePage = () => {
 
@@ -10,6 +11,7 @@ const SamplePage = () => {
         `https://maps.googleapis.com/maps/api/js?key=&libraries=places`
     );
 
+    const [mapDirections, setMapDirections] = useState<google.maps.DirectionsResult>();
 
     return(
         <>
@@ -20,13 +22,13 @@ const SamplePage = () => {
                 <Grid item md={6}>
                     <Map 
                         gMapsApiStatus={GMapsApiStatus.status === "ready"} 
+                        mapDirections={mapDirections}
                     />
                 </Grid>
                 <Grid item md={6} sx={{marginBottom: 1, paddingLeft: 1}}>
                     <Box sx={{}}>
                         <Typography variant="h6">Tools</Typography>
-                        <Form gMapsApiStatus={GMapsApiStatus.status === "ready"} />
-                        <Button variant="contained" sx={{width: "100%", marginTop: 1}}>Draw route on map</Button>
+                        <Form gMapsApiStatus={GMapsApiStatus.status === "ready"} setMapDirections={setMapDirections} />
                     </Box>
                 </Grid>
             </Grid>

@@ -1,8 +1,8 @@
 
-const calculateMatrix = async ( points: google.maps.places.PlaceResult[] ) => {
-    var service = new window.google.maps.DistanceMatrixService();
+const calculateMatrix = async (points: google.maps.places.PlaceResult[]) => {
+    const service = new google.maps.DistanceMatrixService();
 
-    var matrixRequest: google.maps.DistanceMatrixRequest = {
+    const matrixRequest: google.maps.DistanceMatrixRequest = {
        destinations: [
            new google.maps.LatLng(
             points[1].geometry!.location!.lat(),
