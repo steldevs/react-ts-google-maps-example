@@ -8,14 +8,11 @@ import { useState } from "react";
 const SamplePage = () => {
 
     const key: string = "";
-
     const GMapsApiStatus: IGMapsApiStatus = useScript(
         `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=Function.prototype`
     );
 
     const [mapDirections, setMapDirections] = useState<google.maps.DirectionsResult>();
-
-    const [trip, setTrip] = useState<google.maps.places.PlaceResult[]>();
 
     return(
         <>
@@ -30,7 +27,7 @@ const SamplePage = () => {
                         />
                     </Grid>
                     <Grid item md={6} sx={{marginBottom: 1, paddingLeft: 1}}>
-                        <Box sx={{}}>
+                        <Box>
                             <Typography variant="h6">Tools</Typography>
                             <Form gMapsApiStatus={GMapsApiStatus.status === "ready"} setMapDirections={setMapDirections} />
                         </Box>
