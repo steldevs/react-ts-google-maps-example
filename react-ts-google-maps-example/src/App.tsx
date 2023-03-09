@@ -1,5 +1,3 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import AppHeader from './components/AppHeader';
 import SamplePage from './Page';

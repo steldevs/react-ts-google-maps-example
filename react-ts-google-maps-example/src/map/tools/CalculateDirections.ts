@@ -1,5 +1,3 @@
-
-
 const calculateDirections = async (points: google.maps.places.PlaceResult[]) => {
     const service  = new google.maps.DirectionsService();
 

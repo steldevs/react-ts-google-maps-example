@@ -1,6 +1,5 @@
-import { GoogleMap, DirectionsRenderer, DirectionsService, StreetViewPanorama } from '@react-google-maps/api';
+import { GoogleMap, DirectionsRenderer } from '@react-google-maps/api';
 import { Skeleton } from "@mui/material";
-import { useEffect, useState } from 'react';
 
 interface Props {
     gMapsApiStatus: boolean;
@@ -15,18 +14,10 @@ const containerStyle = {
 
 const Map = ({gMapsApiStatus, mapDirections}: Props) => {
 
-    const [directions, setDirections] = useState<google.maps.DirectionsResult>();
-
-    useEffect(() => {
-        setDirections(mapDirections)
-    },[mapDirections, setDirections]);
-
     const originalCenter = {
         lat: 51.5287718,
         lng: -0.2416822
     };
-
-    console.log(mapDirections)
       
       return (
         <>
@@ -35,16 +26,10 @@ const Map = ({gMapsApiStatus, mapDirections}: Props) => {
                 mapContainerStyle={containerStyle}
                 center={originalCenter}
                 zoom={8}
-                options={
-                    {
-                        streetViewControl: false, 
-                        disableDefaultUI: true
-                    }
-                }
             >
-                <DirectionsRenderer
-                    directions={directions}
-                />
+                {mapDirections ?
+                    <DirectionsRenderer directions={mapDirections} />
+                : null }
             </GoogleMap>
         ) : 
             <Skeleton height={300} />

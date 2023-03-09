@@ -4,7 +4,6 @@ import AddressAutocomplete from "./AddressAutocomplete";
 import calculateMatrix from "./CalculateMatrix";
 import calculateDirections from "./CalculateDirections";
 
-
 interface MatrixResponse {
     distance: string;
     duration: string;
@@ -41,13 +40,13 @@ const Form = ({gMapsApiStatus, setMapDirections}: Props) => {
                 <AddressAutocomplete gMapsApiStatus={gMapsApiStatus} setAddress={setPointA} label={"Point A"}  />
                 <AddressAutocomplete gMapsApiStatus={gMapsApiStatus} setAddress={setPointB} label={"Point B"}  />
                 <Button onClick={onCalculate} variant="contained" sx={{width: "100%", marginTop: 1}}>Calculate distance and duration</Button>
+                <Button onClick={onGetDirections} variant="contained" sx={{width: "100%", marginTop: 1}}>Draw route on map</Button>
                 {
                     matrix !== null ?
-                    <Typography>{`Distance: ${matrix.distance} miles. Duration: ${matrix.duration}`}</Typography>
+                    <Typography sx={{marginTop: 1}}>{`Distance: ${matrix.distance} miles. Duration: ${matrix.duration}`}</Typography>
                     :
                     null
                 }
-                <Button onClick={onGetDirections} variant="contained" sx={{width: "100%", marginTop: 1}}>Draw route on map</Button>
             </Grid>
         </form>
     )
