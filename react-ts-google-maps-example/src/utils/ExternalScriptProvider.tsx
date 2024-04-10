@@ -44,7 +44,7 @@ export const useScript = (src: string) => {
         }
       };
     },
-    [src] 
+    [src, status] 
   );
   return status;
 }
