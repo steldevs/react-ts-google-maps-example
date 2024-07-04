@@ -12,20 +12,21 @@ export const useScript = (src: string) => {
 
       let script: any = document.querySelector(`script[src="${src}"]`);
       if (!script) {
-        script = document.createElement("script");
-        script.src = src;
-        script.async = true;
-        script.setAttribute("data-status", "loading");
-        document.body.appendChild(script);
+        let newScript = document.createElement("script");
+        newScript.src = src;
+        newScript.async = true;
+        newScript.setAttribute("data-status", "loading");
+        document.body.appendChild(newScript);
 
         const setAttributeFromEvent = (event:any) => {
-          script.setAttribute(
+          newScript.setAttribute(
             "data-status",
             event.type === "load" ? "ready" : "error"
           );
         };
-        script.addEventListener("load", setAttributeFromEvent);
-        script.addEventListener("error", setAttributeFromEvent);
+        newScript.addEventListener("load", setAttributeFromEvent);
+        newScript.addEventListener("error", setAttributeFromEvent);
+        script = newScript;
       } else {
         setStatus(script.getAttribute("data-status"));
       }
